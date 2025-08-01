@@ -1,0 +1,9 @@
+{
+  "platform": "SensorGroup",
+  "groups": [
+    {
+      "name": "All Windows Closed",
+      "childNames": ["Kitchen Window", "Dining Room Window"]
+    }
+  ]
+}

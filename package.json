@@ -1,0 +1,24 @@
+{
+  "name": "homebridge-sensor-group",
+  "version": "1.0.0",
+  "description": "Create a virtual group contact sensor from 2+ existing sensors in Homebridge.",
+  "main": "index.js",
+  "keywords": [
+    "homebridge-plugin",
+    "homebridge-sensor-group",
+    "contact-sensor-group"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "homebridge": ">=1.5.0"
+  },
+  "license": "MIT",
+  "author": "Phirtue",
+  "displayName": "Sensor Group",
+  "pluginAlias": "SensorGroup",
+  "pluginType": "platform",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Phirtue/homebridge-sensor-group"
+  }
+}

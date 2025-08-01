@@ -1,0 +1,34 @@
+{
+  "pluginAlias": "SensorGroup",
+  "pluginType": "platform",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "platform": {
+        "title": "Platform",
+        "type": "string",
+        "default": "SensorGroup",
+        "readOnly": true
+      },
+      "groups": {
+        "title": "Sensor Groups",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "title": "Group Name"
+            },
+            "childNames": {
+              "type": "array",
+              "title": "Sensor Names",
+              "description": "Names of sensors to group (case-insensitive, matches Homebridge accessory names).",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
