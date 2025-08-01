@@ -1,40 +1,41 @@
-name: Publish package to npm
+name: Publish to NPM
 
 on:
   push:
-    branches: [main]
+    branches: [main] # or your default branch
 
 jobs:
   publish:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: write
-      packages: write
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Use Node.js 20
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          registry-url: "https://registry.npmjs.org/"
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org/'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Bump version (patch)
+      - name: Build (optional)
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          npm version patch -m "ci: bump version to %s [skip ci]"
-          git push origin HEAD:${{ github.ref }}
+          if [ -f package-lock.json ]; then npm run build || echo "No build step"; fi
 
-      - name: Publish to npm
+      - name: Publish package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --access public
+
+      # Optional: Tag the release (useful for versioning, remove if you don't want)
+      - name: Tag latest version
+        if: github.ref == 'refs/heads/main'
+        run: |
+          GIT_TAG="v$(node -p "require('./package.json').version")"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git tag $GIT_TAG || true
+          git push origin $GIT_TAG || true
