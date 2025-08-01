@@ -1,33 +1,34 @@
-name: Publish to npm
+name: Publish package to npm
 
 on:
   push:
-    branches:
-      - main  # or your deployment branch
+    branches: [main]
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
-      - name: Use Node.js 20
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: 'https://registry.npmjs.org/'
+          registry-url: "https://registry.npmjs.org/"
 
-      - name: Install dependencies
-        run: npm install
+      - run: npm ci
 
+      # Bump version and push back to GitHub
       - name: Bump version (patch)
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           npm version patch -m "ci: bump version to %s [skip ci]"
+          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
           git push --follow-tags
 
+      # Publish to NPM
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
