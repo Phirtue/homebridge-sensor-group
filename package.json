@@ -1,6 +1,6 @@
 {
   "name": "homebridge-sensor-group",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Create a virtual group contact sensor from 2+ existing sensors in Homebridge.",
   "main": "index.js",
   "keywords": [
