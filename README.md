@@ -19,7 +19,7 @@ npm install -g homebridge-sensor-group
   "groups": [
     {
       "groupName": "All Windows",
-      "sensorNames": ["Living Room Window", "Bedroom Window"]
+      "sensorNames": ["Kitchen Window", "Dining Room Window"]
     }
   ]
 }
