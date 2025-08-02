@@ -1,32 +1,35 @@
 {
   "pluginAlias": "SensorGroup",
   "pluginType": "platform",
+  "singular": true,
   "schema": {
     "type": "object",
     "properties": {
-      "platform": {
-        "title": "Platform",
+      "name": {
+        "title": "Platform Name",
         "type": "string",
-        "default": "SensorGroup",
-        "readOnly": true
+        "default": "Sensor Group"
       },
       "groups": {
-        "title": "Sensor Groups",
+        "title": "Groups",
         "type": "array",
         "items": {
           "type": "object",
           "properties": {
-            "name": {
-              "type": "string",
-              "title": "Group Name"
+            "groupName": {
+              "title": "Group Name",
+              "type": "string"
             },
-            "childNames": {
+            "sensorNames": {
+              "title": "Contact Sensor Display Names",
+              "description": "Enter the exact names of sensors as shown in Homebridge/HomeKit",
               "type": "array",
-              "title": "Sensor Names",
-              "description": "Names of sensors to group (case-insensitive, matches Homebridge accessory names).",
-              "items": { "type": "string" }
+              "items": {
+                "type": "string"
+              }
             }
-          }
+          },
+          "required": ["groupName", "sensorNames"]
         }
       }
     }

@@ -1,14 +1,28 @@
 # homebridge-sensor-group
 
-Virtual grouped contact sensor for Homebridge.
-Supports both Homebridge v1.x and v2.x without compatibility warnings.
-
-Combines multiple contact sensors (windows/doors) into a single virtual sensor:
-- Reports open if any child is open
-- Reports closed only when all children are closed
+This Homebridge plugin creates a **virtual grouped contact sensor** that combines multiple physical sensors into a single state. If **any** window/door is open, the grouped sensor shows **OPEN**, otherwise **CLOSED**.
 
 ## Features
-* Group sensors by display name (`childNames`) or by explicit UUID (`children`)
-* UI configuration via correct schema so the Homebridge UI shows form fields
-* Failsafe polling (configurable)
-* Missing child sensors default the group to OPEN with a one-time log warning
+- Event-driven: Instant updates when any sensor changes
+- Supports multiple groups
+- Works with HomeKit automations (e.g., turn off HVAC/thermostat if any window is open, turn on HVAC/thermostat if all windows are closed.)
+
+## Installation
+```bash
+npm install -g homebridge-sensor-group
+```
+
+## Example Config
+```json
+{
+  "platform": "SensorGroup",
+  "groups": [
+    {
+      "groupName": "All Windows",
+      "sensorNames": ["Living Room Window", "Bedroom Window"]
+    }
+  ]
+}
+```
+
+Restart Homebridge, and you’ll see a virtual contact sensor in HomeKit for each group.
