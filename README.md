@@ -2,6 +2,8 @@
 
 This Homebridge plugin creates a **virtual grouped contact sensor** that combines multiple physical sensors into a single state. If **any** window/door is open, the grouped sensor shows **OPEN**, otherwise **CLOSED**.
 
+Based on https://github.com/homebridge/homebridge-plugin-template
+
 ## Features
 - Event-driven: Instant updates when any sensor changes
 - Supports multiple groups
